@@ -22,7 +22,7 @@ public class InteriorSpace : ISpace
         interior.gameObject.transform.RotateAround(Vector3.zero, axis, -angle);
         //skybox.transform.RotateAround(Vector3.zero, axis, -angle);
 
-        interior.UpdateChildren();
+        //interior.UpdateChildren();
     }
 
     public Vector3 ConvertToLocalCoordinates(Vector3 parentPos) {

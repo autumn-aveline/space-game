@@ -17,6 +17,9 @@ public class InteriorController : MonoBehaviour
 
     public ISpace localSpace;
 
+    public static Entity currentEntity;
+    public GameObject objCurrentEntity;
+
 
     // PREFABS
 
@@ -31,6 +34,7 @@ public class InteriorController : MonoBehaviour
     {
         player = objPlayer;
         skybox = objSkybox;
+        //currentEntity = objCurrentEntity;
         InitializeInterior();
         AddBuildings();
     }
@@ -51,7 +55,10 @@ public class InteriorController : MonoBehaviour
         //player.currentLocation = interior;
 
         //AddFurnitureToInterior();
-        GenerateTestExterior();
+        //GenerateTestExterior();
+        EntityBuilder.GenerateCityBlock(interior);
+
+        interior.gameObject.transform.SetParent(objCurrentEntity.transform);
     }
 
 
@@ -92,7 +99,7 @@ public class InteriorController : MonoBehaviour
     private void UpdateWorld() {
         if (interior == null) { return; }
         interior.localSpace.UpdateWorld();
-        print(interior.interiors[0].isPointInInterior(player.position));
+        //print(interior.interiors[0].isPointInInterior(player.position));
     }
 
 

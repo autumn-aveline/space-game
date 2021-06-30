@@ -12,17 +12,17 @@ public class SectorSpace : ISpace
 
     public void UpdateWorld() {
         var skybox = WorldController.skybox;
-        sector.gameObject.transform.position = -WorldController.ship.position;
+        sector.gameObject.transform.position = -WorldController.player.position;
         sector.gameObject.transform.rotation = Quaternion.identity;
         skybox.transform.rotation = Quaternion.identity;
     
         var angle = 0f;
         var axis = Vector3.zero;
-        WorldController.ship.rotation.ToAngleAxis(out angle, out axis);
+        WorldController.player.rotation.ToAngleAxis(out angle, out axis);
         sector.gameObject.transform.RotateAround(Vector3.zero, axis, -angle);
         skybox.transform.RotateAround(Vector3.zero, axis, -angle);
 
-        sector.UpdateChildren();
+        //sector.UpdateChildren();
     }
 
     public Vector3 ConvertToLocalCoordinates(Vector3 parentPos) {

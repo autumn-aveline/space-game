@@ -38,12 +38,14 @@ public class Station : Entity
     }
 
     private void UpdateMaxSpeed() {
-        var ship = WorldController.ship;
+        var ship = WorldController.player;
         var d = DistanceFromCenterLineLocal(ship.position);
         //print(ship.velocity.magnitude/ship.maxSpeed);
         //var ratio = ship.velocity.magnitude/ship.maxSpeed;
         //var oldMax = ship.maxSpeed;
-        ship.maxSpeed = ((radius-d)/radius)*(speedLimitCenter-speedLimitSurface) + speedLimitSurface;
+        
+      //  ship.maxSpeed = ((radius-d)/radius)*(speedLimitCenter-speedLimitSurface) + speedLimitSurface;
+        
         //print(ship.velocity*ratio + " " + ratio);
         //ship.velocity = ship.velocity*oldMax/ship.maxSpeed;
 
@@ -55,26 +57,20 @@ public class Station : Entity
     public bool Land()
     {
         //print("yay");
-        var d = DistanceFromGroundLocal(WorldController.ship.position);
-        var down = Down(WorldController.ship.position);
+        var d = DistanceFromGroundLocal(WorldController.player.position);
+        var down = Down(WorldController.player.position);
         var landDistance = 20f;
 
         //print(d);
         
         if (d <= landDistance) {
             var v = down*-d;
-            WorldController.ship.position += v;
-            WorldController.ship.landed = true;
+            WorldController.player.position += v;
+            //WorldController.player.landed = true;
             return true;
         }
         return false;
         //WorldController.ship.landed = true;
-    }
-
-    public override void TakeOff()
-    {   
-        
-        //WorldController.ship.landed = false;
     }
 
     // TODO 
@@ -100,7 +96,7 @@ public class Station : Entity
     }
 
     // Override
-    public override bool IsInEntity(Vector3 position) {
+    public bool IsInEntity(Vector3 position) {
         if (gameObject.name == "Station with buildings(Clone)") {
             int i = 2;
         }
@@ -119,7 +115,7 @@ public class Station : Entity
     }
 
     // Override
-    public override bool IsInEntityLocal(Vector3 position) {
+    public bool IsInEntityLocal(Vector3 position) {
         var zFront = -(length / 2);
         var zBack = (length / 2);
 
@@ -174,9 +170,9 @@ public class Station : Entity
         return Vector2.Distance(stationXY, pointXY);
     }
 
-    public override void EnterEntity()
+    public void EnterEntity()
     {
-        var ship = WorldController.ship;
+        var ship = WorldController.player;
         playerInEntity = true;
         ship.localSpace = localSpace;
         ((StationSpace)localSpace).rotationOffset = currentRotation;
@@ -184,14 +180,14 @@ public class Station : Entity
         ship.rotation = localSpace.ConvertToLocalRotation(ship.rotation);
         gameObject.transform.parent = null;
 
-        ship.currentLocation = this;
+        //ship.currentLocation = this;
 
         //parent.gameObject.transform.parent = this.transform;
     }
 
-    public override void ExitEntity()
+    public void ExitEntity()
     {
-        var ship = WorldController.ship;
+        var ship = WorldController.player;
         playerInEntity = false;
         ship.localSpace = parent.localSpace;
         ship.position = localSpace.ConvertToParentCoordinates(ship.position);
@@ -199,10 +195,10 @@ public class Station : Entity
         ((StationSpace)localSpace).rotationOffset = 0;
         gameObject.transform.parent = parent.gameObject.transform;
 
-        ship.currentLocation = parent;
+        //ship.currentLocation = parent;
 
         // FOR TEST/PLAYING!! need to figure out architecture for this bit tho TODO
-        ship.maxSpeed = 1000;
+        //ship.maxSpeed = 1000;
 
         //parent.gameObject.transform.parent = this.transform;
     }
@@ -232,8 +228,8 @@ public class Station : Entity
         Rotate(new Vector3(0, 0, rotationRate*Time.deltaTime));
         currentRotation += rotationRate*Time.deltaTime;
 
-        if (playerInEntity && DistanceFromCenterLineLocal(WorldController.ship.position) < centerDeadzone) {
-            WorldController.ship.Rotate(new Vector3(0, 0, -rotationRate*Time.deltaTime));
+        if (playerInEntity && DistanceFromCenterLineLocal(WorldController.player.position) < centerDeadzone) {
+            WorldController.player.Rotate(new Vector3(0, 0, -rotationRate*Time.deltaTime));
         }
     }
 }

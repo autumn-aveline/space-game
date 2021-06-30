@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipControls : Entity
+public class ShipControls : PlayerControls
 {
     public GameObject objWorld;
     public GameObject objSkybox;
@@ -104,7 +104,7 @@ public class ShipControls : Entity
 
     private void Land() {
         //var b = currentLocation.Land();
-        currentLocation.Land();
+        //currentLocation.Land();
 
         if (landed) {
             velocity = Vector3.zero;
@@ -114,7 +114,7 @@ public class ShipControls : Entity
     }
 
     private void TakeOff() {
-        currentLocation.TakeOff();
+        //currentLocation.TakeOff();
         landed = false;
     }
 

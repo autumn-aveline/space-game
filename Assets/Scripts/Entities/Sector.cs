@@ -16,14 +16,4 @@ public class Sector : Entity
     {
         
     }
-
-    public override bool IsInEntity(Vector3 position)
-    {
-        return true;
-    }
-
-    public override bool IsInEntityLocal(Vector3 position)
-    {
-        return true;
-    }
 }

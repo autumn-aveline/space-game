@@ -6,15 +6,15 @@ public class StationSpace : ISpace
 {
     public GameObject objWorld;
     public GameObject objSkybox;
-    public ShipControls ship;
+    public PlayerControls ship;
     public Station station;
 
     public float rotationOffset;
 
     public StationSpace(Station station) {
-        objWorld = WorldController.objWorld;
+        objWorld = WorldController.currentEntity.gameObject;
         objSkybox = WorldController.skybox;
-        ship = WorldController.ship;
+        ship = WorldController.player;
         this.station = station;
     }
 
@@ -53,7 +53,7 @@ public class StationSpace : ISpace
         //station.parent.transform.Rotate(0, 0, -station.currentRotation + rotationOffset);
         //objSkybox.transform.Rotate(0, 0, -station.currentRotation + rotationOffset);
 
-        station.UpdateParents();
+        //station.UpdateParents();
 
     }
 
