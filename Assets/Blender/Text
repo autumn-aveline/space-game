@@ -1,0 +1,7 @@
+import bpy
+
+class Test Panel(bpy.types.Panel):
+    bl_label = "Test Panel"
+    bl_idname = "PT_TestPanel"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
